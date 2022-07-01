@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [3.0.1]
+
+### Changed:
+
+- Rename package in composer.json to make packagist.org happy
 
 ## [3.0.0]
 
