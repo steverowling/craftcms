@@ -7,14 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+
+
+## [3.0.0]
+
 ### Added:
 
 - set preview token duration to 1 week
+- Add Commerce plugin
 
 ### Changed:
 
 - Run `craft up` _first_ when running composer install/update
 - increase max revisions to 10
+- Remove Postmark, Agnostic Fetch and Imager-X plugins
+- Update to Craft 4 and plugins to compatible versions
 
 ### Fixed:
 
