@@ -1,20 +1,28 @@
 {# -- Root that all templates inherit from -- #}
 {# -- This allows for defining site-wide Twig variables as needed -- #}
 {% apply spaceless %}
-  {# @var _isPreview bool TRUE if the request is ANY kind of 'preview' #}
-  {% set _isPreview = craft.app.request.getIsLivePreview() or craft.app.request.getIsPreview() %}
-
-  {# @var _isPreviewIframe bool TRUE if the request is a preview request within the CP iframe #}
-  {% set _isPreviewIframe = _isPreview and craft.app.request.headers.get('sec-fetch-dest') == 'iframe' %}
-
-  {# Element edit button #}
-  {% if currentUser and currentUser.can('accessCp') and not _isPreviewIframe %}
+  {# Element edit button
+     requires a currentUser, who can access the CP, and the request should not be an iframe live preview #}
+  {% if currentUser
+    and currentUser.can('accessCp')
+    and not (craft.app.request.getIsPreview() and craft.app.request.headers.get('sec-fetch-dest') == 'iframe') %}
     {% html at endBody %}
-      {% set element = craft.app.elements().getElementByUri(craft.app.request.getFullUri() ?: '__home__') %}
-      {% if element and element.getIsEditable() %}
+      {% set element = craft.app.getUrlManager().getMatchedElement() %}
+      {% if element and element.canSave(currentUser) %}
         <a href="{{ element.getCpEditUrl() }}"
            target="_blank"
-           class="fixed left-0 bg-black text-white bottom-0 px-5 py-2 mb-6 ml-6 font-mono uppercase">
+           class="fixed left-0 bg-black hover:bg-gray-300 hover:text-gray-800 text-white bottom-0 px-5 py-2 mb-6 ml-6 font-medium rounded-full">
+          <svg viewBox="0 0 329 329" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" class="w-8 h-8 -ml-3 mr-2 inline-block">
+              <g transform="matrix(1,0,0,1,-142.607,-141.237)">
+                <path d="M436.453,201.521C428.857,192.049 420.246,183.437 410.773,175.841C403.502,180.493 396.943,185.994 391.095,192.344C382.29,185.784 372.748,180.275 362.664,175.929C365.239,167.69 366.723,159.259 367.117,150.636C355.802,146.231 344.039,143.079 332.037,141.237C328.067,148.901 325.137,156.945 323.247,165.367C312.341,164.089 301.324,164.089 290.418,165.367C288.528,156.945 285.598,148.901 281.628,141.237C269.626,143.079 257.862,146.231 246.548,150.636C246.941,159.259 248.426,167.69 251,175.929C240.917,180.275 231.375,185.784 222.569,192.344C216.722,185.994 210.163,180.493 202.892,175.841C193.419,183.437 184.808,192.049 177.212,201.521C181.864,208.792 187.365,215.351 193.714,221.199C187.154,230.005 181.646,239.546 177.299,249.63C169.06,247.055 160.63,245.571 152.007,245.177C147.601,256.492 144.449,268.256 142.607,280.257C150.272,284.228 158.315,287.158 166.737,289.047C165.46,299.953 165.46,310.971 166.737,321.877C158.315,323.766 150.272,326.696 142.607,330.667C144.449,342.668 147.601,354.432 152.007,365.747C160.63,365.353 169.06,363.869 177.299,361.294C181.646,371.378 187.154,380.919 193.714,389.725C187.365,395.573 181.864,402.132 177.212,409.403C184.808,418.875 193.419,427.487 202.892,435.083C210.163,430.431 216.722,424.93 222.569,418.581C231.375,425.14 240.917,430.649 251,434.995C248.426,443.234 246.941,451.665 246.548,460.288C257.862,464.693 269.626,467.845 281.628,469.687C285.598,462.023 288.528,453.979 290.418,445.557C301.324,446.835 312.341,446.835 323.247,445.557C325.137,453.979 328.067,462.023 332.037,469.687C344.039,467.845 355.802,464.693 367.117,460.288C366.723,451.665 365.239,443.234 362.664,434.995C372.748,430.649 382.29,425.14 391.095,418.581C396.943,424.93 403.502,430.431 410.773,435.083C420.246,427.487 428.857,418.875 436.453,409.403C431.801,402.132 426.3,395.573 419.951,389.725C426.51,380.919 432.019,371.378 436.366,361.294C444.604,363.869 453.035,365.353 461.658,365.747C466.064,354.432 469.216,342.668 471.058,330.667C463.393,326.696 455.35,323.766 446.927,321.877C448.205,310.971 448.205,299.953 446.927,289.047C455.35,287.158 463.393,284.228 471.058,280.257C469.216,268.256 466.064,256.492 461.658,245.177C453.035,245.571 444.604,247.055 436.366,249.63C432.019,239.546 426.51,230.005 419.951,221.199C426.3,215.351 431.801,208.792 436.453,201.521Z" style="fill:url(#_Linear1);"></path>
+              </g>
+            <g transform="matrix(1,0,0,1,48.313,267.134)">
+              <path d="M116.183,5.008C162.255,5.008 198.312,-21.033 208.328,-59.594C209.83,-65.102 206.825,-67.606 201.317,-67.606L179.783,-67.606C174.274,-67.606 173.273,-65.102 170.769,-59.594C163.257,-41.565 145.229,-30.047 117.184,-30.047C85.635,-30.047 62.599,-51.08 58.091,-85.635C57.591,-91.143 58.592,-93.647 64.101,-93.647L203.821,-93.647C209.329,-93.647 211.833,-96.151 211.833,-101.66L211.833,-103.162C211.833,-166.262 172.772,-210.331 116.183,-210.331C57.591,-210.331 17.027,-166.262 17.027,-102.662C17.027,-39.061 57.591,5.008 116.183,5.008ZM65.102,-124.696C59.594,-124.696 58.592,-127.701 60.095,-132.709C67.606,-162.255 88.139,-176.277 116.183,-176.277C144.227,-176.277 162.756,-161.755 170.268,-132.208C171.77,-127.2 170.769,-124.696 165.26,-124.696L65.102,-124.696Z" style="fill:white;fill-rule:nonzero;"></path>
+            </g>
+            <defs>
+              <linearGradient id="_Linear1" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(234.969,234.969,-234.969,234.969,189.348,187.978)"><stop offset="0" style="stop-color:rgb(188,67,67);stop-opacity:1"></stop><stop offset="1" style="stop-color:rgb(67,67,188);stop-opacity:1"></stop></linearGradient>
+            </defs>
+          </svg>
           Edit this page
         </a>
       {% endif %}
