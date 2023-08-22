@@ -1,4 +1,4 @@
-.PHONY: build dev composer craft pull up install
+.PHONY: build dev composer craft up install
 
 build: up
 	ddev exec npm run build
@@ -11,9 +11,6 @@ composer: up
 craft: up
 	ddev exec php craft \
 		$(filter-out $@,$(MAKECMDGOALS))
-pull: up
-	ddev exec bash scripts/pull_assets.sh
-	ddev exec bash scripts/pull_db.sh
 install: up build
 	ddev exec php craft setup/app-id \
 		$(filter-out $@,$(MAKECMDGOALS))
@@ -21,9 +18,7 @@ install: up build
 		$(filter-out $@,$(MAKECMDGOALS))
 	ddev exec php craft install \
 		$(filter-out $@,$(MAKECMDGOALS))
-	ddev exec php craft plugin/install async-queue
 	ddev exec php craft plugin/install cp-field-inspect
-	ddev exec php craft plugin/install commerce
 	ddev exec php craft plugin/install knock-knock
 	ddev exec php craft plugin/install typedlinkfield
 	ddev exec php craft plugin/install redactor

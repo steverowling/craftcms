@@ -151,15 +151,13 @@ A Makefile has been included to provide a unified CLI for common development com
 
 ## Craft CMS Plugins
 
-1. [Commerce](https://plugins.craftcms.com/commerce)
-2. [Async Queue](https://plugins.craftcms.com/async-queue)
-3. [CP Field Inspect](https://plugins.craftcms.com/cp-field-inspect)
-4. [Craft Autocomplete](https://github.com/nystudio107/craft-autocomplete)
-5. [Knock Knock](https://plugins.craftcms.com/knock-knock)
-6. [Redactor](https://plugins.craftcms.com/redactor)
-7. [Seomatic](https://nystudio107.com/docs/seomatic/)
-8. [Typed Link Field](https://plugins.craftcms.com/typedlinkfield)
-9. [Vite](https://github.com/nystudio107/craft-vite)
+1. [CP Field Inspect](https://plugins.craftcms.com/cp-field-inspect)
+2. [Craft Autocomplete](https://github.com/nystudio107/craft-autocomplete)
+3. [Knock Knock](https://plugins.craftcms.com/knock-knock)
+4. [Redactor](https://plugins.craftcms.com/redactor)
+5. [Seomatic](https://nystudio107.com/docs/seomatic/)
+6. [Typed Link Field](https://plugins.craftcms.com/typedlinkfield)
+7. [Vite](https://github.com/nystudio107/craft-vite)
 
 ## Tailwind Plugins
 
