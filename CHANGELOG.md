@@ -9,6 +9,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [3.1.0]
+
+### Added
+
+- Add Hyper plugin
+
+### Changed:
+
+- Update packages to latest versions
+
+### Removed:
+
+- Remove Commerce, LinkedField and Async Queue plugins
+
 ## [3.0.1]
 
 ### Changed:
